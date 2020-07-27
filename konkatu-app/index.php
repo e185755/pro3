@@ -1,5 +1,6 @@
 <?php
 
+
 function require_auth() {
     $AUTH_USER = 'konkatu';
     $AUTH_PASS = 'konkatu';
