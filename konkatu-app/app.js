@@ -5,7 +5,7 @@ const io = require('socket.io')(http);
 const PORT = process.env.PORT || 3000;
 
 app.get('/' , function(req, res){
-    res.sendFile(__dirname+'/views/index.html');
+    res.sendFile(__dirname+'/views/chat.html');
 });
 
 io.on('connection',function(socket){
