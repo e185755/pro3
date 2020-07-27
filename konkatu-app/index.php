@@ -20,6 +20,6 @@ function require_auth() {
 
 require_auth();
 
-header('Location: /views/login.ejs');
+header('Location: /views/chat.html');
 
 ?>
