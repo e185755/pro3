@@ -7,28 +7,56 @@
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 </head>
 <body>
-    <div style="text-align:center; mergin:auto;">
-        <ul id="names" style="list-style:none;"></ul>
-        <form id="account_form" action="#">
-          <input id="input_name" placeholder="名前" autocomplete="off" />
-          <input id="input_hobby" placeholder="趣味" autocomplete="off" />
-          <button>Send</button>
-        </form>
+    <div style="margin-left:100px; margin-right:100px">
+        <div style="font-size:52px; text-align:center">
+            チャットするよ
+        </div>
+        <div style="border: 1px solid #333333;">
+            <div style="padding-top: 5px;">
+                <form id="account_form" action="#" style="text-align:center">
+                    <input id="input_name" placeholder="名前" style="width:20%; height:25px" />
+                    <input id="input_chat" placeholder="チャット内容" autocomplete="off" style="width:65%; height:25px" />
+                    <button style="height:30px; width:7%; vertical-align: middle;" >投稿</button>
+                </form>
+            </div>
+            <ul id="infos" style="list-style:none; mergin:left;"></ul>
+        </div>
     </div>
 
   <script>
       var socketio = io();
       $(function(){
           $('#account_form').submit(function(){
-              var info="名前："+$('#input_name').val() + " 趣味："+$('#input_hobby').val();
+              var now_time=getNow();
+
+              var info=$('#input_name').val() + "："+$('#input_chat').val()+"\t\t\t\t\t\t\t\t\t\t\t"+now_time;
               console.log(info);
-            socketio.emit('info', info);
-            return false;
+              socketio.emit('info', info);
+              return false;
           });
           socketio.on('info',function(name){
-            $('#names').append($('<li>').text(name));
+              $('#infos').append($('<li>').text(name));
           });
         });
+
+      function getNow() {
+          var now = new Date();
+          var year = now.getFullYear();
+          var mon = now.getMonth()+1; //１を足すこと
+          var day = now.getDate();
+          var hour = now.getHours();
+          var min = now.getMinutes();
+          var sec = now.getSeconds();
+
+          //出力用
+          var s = year + "年" + mon + "月" + day + "日" + hour + "時" + min + "分" + sec + "秒";
+          return s;
+      }
+
+      function test() {
+          console.log("kannsuu");
+
+      }
     </script>
 </body>
 </html>
