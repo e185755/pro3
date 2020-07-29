@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>socket.io chat</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+</head>
+<body>
+    <div style="text-align:center; mergin:auto;">
+        <ul id="names" style="list-style:none;"></ul>
+        <form id="account_form" action="#">
+          <input id="input_name" placeholder="名前" autocomplete="off" />
+          <input id="input_hobby" placeholder="趣味" autocomplete="off" />
+          <button>Send</button>
+        </form>
+    </div>
+
+  <script>
+      var socketio = io();
+      $(function(){
+          $('#account_form').submit(function(){
+              var info="名前："+$('#input_name').val() + " 趣味："+$('#input_hobby').val();
+              console.log(info);
+            socketio.emit('info', info);
+            return false;
+          });
+          socketio.on('info',function(name){
+            $('#names').append($('<li>').text(name));
+          });
+        });
+    </script>
+</body>
+</html>
